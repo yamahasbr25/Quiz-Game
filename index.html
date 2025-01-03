@@ -97,7 +97,7 @@
                     <div class="answers">
                         ${question.answers.map((ans, i) => {
                             if (typeof ans === 'object') {
-                                return `<button onclick="handleAnswer(${questionIndex}, '${ans.text}')}" ${ans.link ? `onclick=\"window.location.href='${ans.link}'\"` : ''}>${ans.text}</button>`;
+                                return `<button onclick="window.location.href='${ans.link}'">${ans.text}</button>`;
                             }
                             return `<button onclick="handleAnswer(${questionIndex}, '${ans}')">${ans}</button>`;
                         }).join('')}
