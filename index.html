@@ -28,13 +28,15 @@
         .answers button {
             display: block;
             margin: 10px auto;
-            padding: 10px 20px;
+            padding: 10px;
             font-size: 1em;
             background-color: #007BFF;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            width: 100%;
+            max-width: 300px;
         }
         .answers button:hover {
             background-color: #0056b3;
@@ -81,7 +83,7 @@
                     <div class="answers">
                         ${question.answers.map((ans, i) => {
                             if (typeof ans === 'object') {
-                                return `<button onclick="nextQuestion(${questionIndex}, '${ans.text}')" ${ans.link ? `onclick=\"window.location.href='${ans.link}'\"` : ''}>${ans.text}</button>`;
+                                return `<button onclick="nextQuestion(${questionIndex}, '${ans.text}')}" ${ans.link ? `onclick=\"window.location.href='${ans.link}'\"` : ''}>${ans.text}</button>`;
                             }
                             return `<button onclick="nextQuestion(${questionIndex}, '${ans}')">${ans}</button>`;
                         }).join('')}
