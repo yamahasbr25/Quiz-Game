@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .question-container {
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+        }
+        .question {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+        .answers button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .answers button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="question-container" id="question-container">
+        <div class="question" id="question">How old are you?</div>
+        <div class="answers" id="answers">
+            <button onclick="nextQuestion(1, 'Under 18 years old')">Under 18 years old</button>
+            <button onclick="nextQuestion(1, 'Over 18 years old')">Over 18 years old</button>
+        </div>
+    </div>
+
+    <script>
+        let questionIndex = 0;
+        const questions = [
+            {
+                text: "How old are you?",
+                answers: ["Under 18 years old", "Over 18 years old"]
+            },
+            {
+                text: "Are you interested in earning money?",
+                answers: ["Yes", "No"]
+            },
+            {
+                text: "Join or register and follow the next instructions?",
+                answers: [
+                    { text: "Proceed to register", link: "https://www.facebook.com" },
+                    { text: "No" }
+                ]
+            }
+        ];
+
+        function nextQuestion(index, answer) {
+            questionIndex++;
+
+            const container = document.getElementById('question-container');
+            if (questionIndex < questions.length) {
+                const question = questions[questionIndex];
+                container.innerHTML = `
+                    <div class="question">${question.text}</div>
+                    <div class="answers">
+                        ${question.answers.map((ans, i) => {
+                            if (typeof ans === 'object') {
+                                return `<button onclick="nextQuestion(${questionIndex}, '${ans.text}')" ${ans.link ? `onclick=\"window.location.href='${ans.link}'\"` : ''}>${ans.text}</button>`;
+                            }
+                            return `<button onclick="nextQuestion(${questionIndex}, '${ans}')">${ans}</button>`;
+                        }).join('')}
+                    </div>
+                `;
+            } else {
+                container.innerHTML = `<div class="question">Thank you for playing!</div>`;
+            }
+        }
+    </script>
+</body>
+</html>
