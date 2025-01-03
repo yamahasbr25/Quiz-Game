@@ -41,14 +41,19 @@
         .answers button:hover {
             background-color: #0056b3;
         }
+        .loading {
+            font-size: 1em;
+            color: #555;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <div class="question-container" id="question-container">
         <div class="question" id="question">How old are you?</div>
         <div class="answers" id="answers">
-            <button onclick="nextQuestion(1, 'Under 18 years old')">Under 18 years old</button>
-            <button onclick="nextQuestion(1, 'Over 18 years old')">Over 18 years old</button>
+            <button onclick="handleAnswer(1, 'Under 18 years old')">Under 18 years old</button>
+            <button onclick="handleAnswer(1, 'Over 18 years old')">Over 18 years old</button>
         </div>
     </div>
 
@@ -72,6 +77,15 @@
             }
         ];
 
+        function handleAnswer(index, answer) {
+            const container = document.getElementById('question-container');
+            container.innerHTML = '<div class="loading">Loading...</div>';
+
+            setTimeout(() => {
+                nextQuestion(index, answer);
+            }, 3000);
+        }
+
         function nextQuestion(index, answer) {
             questionIndex++;
 
@@ -83,9 +97,9 @@
                     <div class="answers">
                         ${question.answers.map((ans, i) => {
                             if (typeof ans === 'object') {
-                                return `<button onclick="nextQuestion(${questionIndex}, '${ans.text}')}" ${ans.link ? `onclick=\"window.location.href='${ans.link}'\"` : ''}>${ans.text}</button>`;
+                                return `<button onclick="handleAnswer(${questionIndex}, '${ans.text}')}" ${ans.link ? `onclick=\"window.location.href='${ans.link}'\"` : ''}>${ans.text}</button>`;
                             }
-                            return `<button onclick="nextQuestion(${questionIndex}, '${ans}')">${ans}</button>`;
+                            return `<button onclick="handleAnswer(${questionIndex}, '${ans}')">${ans}</button>`;
                         }).join('')}
                     </div>
                 `;
